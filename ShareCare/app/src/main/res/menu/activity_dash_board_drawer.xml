@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_appointments"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Appointments" />
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Cart" />
+        <item
+            android:id="@+id/nav_reports"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Reports" />
+        <item
+            android:id="@+id/nav_reschedule"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="ReSchedule Appointments" />
+        <item
+            android:id="@+id/nav_pasttests"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Past Tests" />
+        <item
+            android:id="@+id/nav_invoices"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="InVoices" />
+
+
+    </group>
+
+    <item android:title="Profile">
+        <menu>
+            <item
+                android:id="@+id/nav_myprofile"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="My Profile" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Edit" />
+            <item
+                android:id="@+id/nav_family"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Family" />
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Help" />
+        </menu>
+    </item>
+
+</menu>
