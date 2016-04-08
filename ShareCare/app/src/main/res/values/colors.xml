@@ -7,6 +7,13 @@
     <color name="primarytext">#212121</color>
     <color name="lightprimary">#b2dfdb</color>
     <color name="secondarytext">#727272</color>
+    <color name="tabsScrollColor">#8a140e</color>
+    <color name="buttons">#00BCD4</color>
+    <color name="text">#FFFFFF</color>
+    <color name="background">#B2EBF2</color>
+    <!--
+    <color name="bkc_card">#FF5722</color> !-->
+    <color name="bkc_card">#ff8080</color>
 
         <!--reds-->
         <color name="md_red_50">#FFEBEE</color>

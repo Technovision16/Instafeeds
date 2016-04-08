@@ -1,5 +1,6 @@
 package com.healthpatient.patientapp;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.healthpatient.patientapp.Adapters.TabsPagerAdapter;
@@ -29,6 +31,7 @@ public class DashBoard extends AppCompatActivity
 
     ViewPager viewPager;
     TabLayout tabLayout;
+    Button back;
     TabsPagerAdapter mAdapter;
     private int[] tabIcons = {
             R.drawable.ic_menu_camera,
@@ -110,6 +113,7 @@ public class DashBoard extends AppCompatActivity
             return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -141,9 +145,9 @@ public class DashBoard extends AppCompatActivity
     private void setupViewPager(ViewPager viewPager) {
         TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new HomeFragment(), "Home");
-        adapter.addFrag(new HomeFragment(), "MyAppointments");
-        adapter.addFrag(new HomeFragment(), "Results");
-        adapter.addFrag(new HomeFragment(), "Profile");
+        adapter.addFrag(new AppointmentFragment(), "MyAppointments");
+        adapter.addFrag(new ReportFragment(), "Results");
+        adapter.addFrag(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
     }
 

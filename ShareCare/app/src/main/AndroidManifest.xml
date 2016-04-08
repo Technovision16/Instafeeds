@@ -10,12 +10,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/takeavni"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".DashBoard"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,10 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Signup"
             android:label="@string/title_activity_signup"
@@ -41,8 +41,36 @@
             android:label="@string/title_activity_schedule_appointments"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ShareCare"
             android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LabActivity"
+            android:label="@string/title_activity_lab"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Donation"
+            android:label="@string/title_activity_donation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AboutUs"
+            android:label="@string/title_activity_about_us"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Acceptor"
+            android:label="@string/title_activity_acceptor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DonorsList"
+            android:label="@string/title_activity_donors_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ReScheduleAppointments"
+            android:label="@string/title_activity_re_schedule_appointments"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Reports"
+            android:label="@string/title_activity_reports"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -22,6 +22,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.healthpatient.patientapp.Model.Loggedin;
 import com.healthpatient.patientapp.Utils.Constants;
@@ -54,11 +55,14 @@ public class SearchLabs extends AppCompatActivity {
 
     AutoCompleteTextView cityview,areaview,searchview,testview,newView;
     List<AutoCompleteTextView> testlist;
-    int city_id,hint=0;
+    int city_id,hint=0,area_id;
+    int[] test_id;
     List<String[]> loginList;
+    List<String[]> areaList;
+    List<String[]> testListcont;
     CardView testcard;
     LinearLayout linear,outerlinear;
-    ImageButton imageButton;
+    ImageButton imageButton,searchimage;
 
 
     @Override
@@ -78,14 +82,20 @@ public class SearchLabs extends AppCompatActivity {
         outerlinear=(LinearLayout) findViewById(R.id.search_linear);
         imageButton=(ImageButton) findViewById(R.id.imageButton);
         testcard=(CardView) findViewById(R.id.testcard);
+        searchimage=(ImageButton) findViewById(R.id.searchimage);
         testlist=new ArrayList<AutoCompleteTextView>();
+        final SearchTask citytask=new SearchTask();
+        citytask.execute();
+        TestTask testtask = new TestTask(100);
+        testtask.execute();
 
-        cityview.setOnClickListener(new View.OnClickListener() {
+        cityview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                SearchTask citytask=new SearchTask();
-                citytask.execute();
+                Log.v("MyApp", Integer.toString(city_id));
+                AreaTask areatask = new AreaTask();
+                areatask.execute();
 
             }
         });
@@ -99,35 +109,58 @@ public class SearchLabs extends AppCompatActivity {
                 Log.v("MyApp", "Area correct");
             }
         });*/
-        areaview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cityview.getText().toString();
-                for(int i=0;i<loginList.size();i++) {
-                    if(loginList.get(i)[1].equals(cityview.getText().toString()))
-                    {
-                        city_id=Integer.parseInt(loginList.get(i)[0]);
-                    }
-                }
-                AreaTask areatask = new AreaTask(Integer.toString(city_id));
-                areatask.execute();
-            }
-        });
         searchview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestTask testtask = new TestTask(0);
-                testtask.execute();
+
             }
         });
-
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createEditTextView();
+                int i=testlist.size()-1;
+                TestTask testTask=new TestTask(i);
+                testTask.execute();
             }
         });
 
+        searchimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cityview.getText().toString()==null||areaview.getText().toString()==null)
+                {
+                    Toast.makeText(SearchLabs.this,"Please Enter Location",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    for (int i = 0; i < loginList.size(); i++) {
+                        if (loginList.get(i)[1].equals(cityview.getText().toString())) {
+                            city_id = Integer.parseInt(loginList.get(i)[0]);
+                        }
+                    }
+                    for (int i = 0; i < areaList.size(); i++) {
+                        if (areaList.get(i)[1].equals(areaview.getText().toString())) {
+                            area_id = Integer.parseInt(areaList.get(i)[0]);
+                        }
+                    }
+                    test_id = new int[testlist.size()];
+                    for (int j = 0; j < testlist.size(); j++) {
+                        for (int i = 0; i < testListcont.size(); i++) {
+                            if (testListcont.get(i)[1].equals(testlist.get(j).getText().toString())) {
+                                test_id[j] = Integer.parseInt(areaList.get(i)[0]);
+                            }
+                        }
+                    }
+                    //SearchLabTask searchLabTask=new SearchLabTask();
+                    //searchLabTask.execute();
+                    Intent intent = new Intent(SearchLabs.this, ScheduleAppointments.class).putExtra("city", cityview.getText().toString()).putExtra("area", areaview.getText().toString());
+                    startActivity(intent);
+                }
+            }
+        });
+
+/*
         for(int i=1;i<testlist.size();i++)
         {
             final int t=i;
@@ -139,6 +172,7 @@ public class SearchLabs extends AppCompatActivity {
                 }
             });
         }
+        */
 
     }
     protected void createEditTextView() {
@@ -253,7 +287,7 @@ public class SearchLabs extends AppCompatActivity {
                     JSONObject city=jsonObjMain.getJSONObject(i);
                     string[0]=city.getString(Constants.CITY_ID);
                     string[1]=city.getString(Constants.CITY_NAME);
-
+                    Log.v("MyApp",string[0]);
                     loginList.add(string);
                 }
 
@@ -287,11 +321,18 @@ public class SearchLabs extends AppCompatActivity {
         final String mlink;
         String error=null;
         HttpURLConnection conn;
+        int city_id;
         BufferedReader bufferedReader;
 
-        AreaTask(String city_id)
+        AreaTask()
         {
-            mlink = URL1.getAreaURL(city_id);
+            cityview.getText().toString();
+            for (int i = 0; i < loginList.size(); i++) {
+                if (loginList.get(i)[1].equals(cityview.getText().toString())) {
+                    city_id = Integer.parseInt(loginList.get(i)[0]);
+                }
+            }
+            mlink = URL1.getAreaURL(Integer.toString(city_id));
 
         }
         @Override
@@ -362,7 +403,7 @@ public class SearchLabs extends AppCompatActivity {
     }
     public List<String[]> parsejson2(String jsonResponse)
     {
-        List<String[]> loginList = new ArrayList<String[]>();
+        areaList = new ArrayList<String[]>();
         if (jsonResponse != null) {
 
             try {
@@ -374,7 +415,7 @@ public class SearchLabs extends AppCompatActivity {
                     JSONObject area=jsonObjMain.getJSONObject(i);
                     string[0]=area.getString(Constants.CITY_ID);
                     string[1]=area.getString(Constants.CITY_NAME);
-                    loginList.add(string);
+                    areaList.add(string);
                 }
 
 
@@ -385,7 +426,7 @@ public class SearchLabs extends AppCompatActivity {
             }
 
         }
-        return loginList;
+        return areaList;
     }
     private void addareaToAutoComplete(List<String[]> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
@@ -420,14 +461,28 @@ public class SearchLabs extends AppCompatActivity {
             {
                 URL url=new URL(mlink);
                 Map<String,Object> param=new LinkedHashMap<String, Object>();
-
-
+                StringBuilder postData=new StringBuilder();
+                byte[] postDataBytes=postData.toString().getBytes("UTF-8");
 
                 conn=(HttpURLConnection)url.openConnection();
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
                 conn.setRequestMethod("POST");
-
+                if(postData.length()!=0)
+                    postData.append('&');
+                postData.append(URLEncoder.encode("city_id", "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(Integer.toString(city_id), "UTF-8"));
+                if(postData.length()!=0)
+                    postData.append('&');
+                postData.append(URLEncoder.encode("area_id", "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(Integer.toString(area_id), "UTF-8"));
+                if(postData.length()!=0)
+                    postData.append('&');
+                postData.append(URLEncoder.encode("test_id", "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(Integer.toString(area_id), "UTF-8"));
                 InputStream inputStream = conn.getInputStream();
 
                 StringBuffer buffer = new StringBuffer();
@@ -476,12 +531,11 @@ public class SearchLabs extends AppCompatActivity {
         @Override
         protected void onPostExecute(final String success) {
             addtestToAutoComplete(parsejson3(success),position);
-
         }
     }
     public List<String[]> parsejson3(String jsonResponse)
     {
-        List<String[]> loginList = new ArrayList<String[]>();
+        testListcont = new ArrayList<String[]>();
         if (jsonResponse != null) {
 
             try {
@@ -489,13 +543,13 @@ public class SearchLabs extends AppCompatActivity {
 
                 // Creating JSONObject from String
                 JSONArray jsonObjMain = alljson.getJSONArray(Constants.ALLTESTS);
-                for(int i=0;i<=jsonObjMain.length();i++)
+                for(int i=0;i<=150;i++)
                 {
                     String[] string=new String[2];
                     JSONObject city=jsonObjMain.getJSONObject(i);
                     string[0]=city.getString(Constants.ID);
                     string[1]=city.getString(Constants.TESTNAME);
-                    loginList.add(string);
+                    testListcont.add(string);
                 }
 
             } catch (JSONException e) {
@@ -504,7 +558,7 @@ public class SearchLabs extends AppCompatActivity {
             }
 
         }
-        return loginList;
+        return testListcont;
     }
     private void addtestToAutoComplete(List<String[]> emailAddressCollection,int position) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
@@ -516,10 +570,87 @@ public class SearchLabs extends AppCompatActivity {
                 new ArrayAdapter<>(SearchLabs.this,
                         android.R.layout.simple_dropdown_item_1line, list);
 
-        if(position==0)
+        if(position==100)
         searchview.setAdapter(adapter);
         else
         testlist.get(position).setAdapter(adapter);
+    }
+    public class SearchLabTask extends AsyncTask<Void, Void, String>
+    {
+
+        final String mlink;
+        String error=null;
+        HttpURLConnection conn;
+        BufferedReader bufferedReader;
+
+        SearchLabTask(int position)
+        {
+            mlink = URL1.getSearchURL();
+        }
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try
+            {
+                URL url=new URL(mlink);
+                Map<String,Object> param=new LinkedHashMap<String, Object>();
+
+                conn=(HttpURLConnection)url.openConnection();
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.setRequestMethod("GET");
+
+                InputStream inputStream = conn.getInputStream();
+
+                StringBuffer buffer = new StringBuffer();
+                if(inputStream==null){
+                    return "null_inputstream";
+                }
+
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line ;
+
+                while ( (line=bufferedReader.readLine())!=null ){
+                    buffer.append(line + '\n');
+                }
+
+                if (buffer.length() == 0) {
+                    return "null_inputstream";
+                }
+
+                String stringJSON = buffer.toString();
+                Log.v("MyApp", "JSON retured in Attendance" + stringJSON);
+
+                return stringJSON;
+
+            } catch (UnknownHostException | ConnectException e) {
+                error = "null_internet" ;
+                e.printStackTrace();
+            } catch (IOException e) {
+                error= "null_file";
+                e.printStackTrace();
+            } finally {
+                if ( conn!= null) {
+                    conn.disconnect();
+                }
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (final IOException e) {
+//                        Log.e(LOG_CAT, "ErrorClosingStream", e);
+                    }
+                }
+            }
+
+            return error;
+        }
+        @Override
+        protected void onPostExecute(final String success) {
+
+            Intent intent=new Intent(SearchLabs.this,LabActivity.class).putExtra("key",success);
+            startActivity(intent);
+        }
     }
 
 }

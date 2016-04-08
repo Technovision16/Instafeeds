@@ -20,4 +20,19 @@ public class URL1 {
         String url = "medicaltest/search.json";
         return Constants.BASE_URL+url ;
     }
+    public static String getRegisterURL()
+    {
+        String url="/patient/preregister.json";
+        return Constants.BASE_URL+url;
+    }
+    public static String getSearchURL()
+    {
+        String url="/medicaltest/appsearch.json";
+        return Constants.BASE_URL+url;
+    }
+    public static String getProfileURL()
+    {
+        String url="/patient/profile.json";
+        return Constants.BASE_URL+url;
+    }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Health Litmus</string>
+    <string name="app_name">ShareCare</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -26,4 +26,11 @@
     <string name="title_activity_search_labs">SearchLabs</string>
     <string name="title_activity_schedule_appointments">ScheduleAppointments</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_lab">LabActivity</string>
+    <string name="title_activity_donation">Donation</string>
+    <string name="title_activity_about_us">AboutUs</string>
+    <string name="title_activity_acceptor">Acceptor</string>
+    <string name="title_activity_donors_list">DonorsList</string>
+    <string name="title_activity_re_schedule_appointments">ReScheduleAppointments</string>
+    <string name="title_activity_reports">Reports</string>
 </resources>

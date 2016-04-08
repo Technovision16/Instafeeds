@@ -1,0 +1,141 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.healthpatient.patientapp.ProfileFragment">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/bkc_card"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                style="?android:attr/borderlessButtonStyle"
+                android:src="@drawable/malecircle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:id="@+id/tv_user_details_name"
+                android:textSize="24sp"
+                android:textColor="@color/primarytext"
+                android:layout_marginRight="56dp"
+                android:layout_marginEnd="56dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A+"
+                android:paddingTop="35dp"
+                android:id="@+id/text_userdetails_bloodgroup"
+                android:layout_centerVertical="true"
+                android:layout_alignRight="@+id/tv_user_details_name"
+                android:layout_alignEnd="@+id/tv_user_details_name" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        app:contentPadding="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/bkc_card"
+
+        >
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent" android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact Details:"
+                android:id="@+id/text_userdetails_contactdetails"
+                android:layout_alignParentTop="true"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email:"
+
+                android:id="@+id/textView2"
+                android:textSize="20sp"
+                android:layout_marginTop="35dp"
+                android:paddingBottom="10dp"
+                android:layout_below="@+id/text_userdetails_contactdetails"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_userdetails_contactdetails_email"
+                android:text="email"
+                android:layout_below="@+id/textView2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile No:"
+
+                android:textSize="20sp"
+                android:paddingTop="20dp"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/text_userdetails_contactdetails_email"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mobile"
+                android:paddingBottom="10dp"
+                android:paddingTop="20dp"
+                android:id="@+id/text_userdetails_contactdetails_mobile"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
+</FrameLayout>
